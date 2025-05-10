@@ -1,0 +1,21 @@
+{
+  "name": "devsnack-prosemirror",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "",
+  "description": "",
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "prosemirror-commands": "^1.7.1",
+    "prosemirror-keymap": "^1.2.3",
+    "prosemirror-model": "^1.25.1",
+    "prosemirror-schema-list": "^1.5.1",
+    "prosemirror-state": "^1.4.3",
+    "prosemirror-view": "^1.39.2",
+    "rollup": "^4.40.2"
+  }
+}
