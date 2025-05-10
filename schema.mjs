@@ -3,13 +3,18 @@ import {Schema} from "prosemirror-model"
 export const gateSchema = new Schema({
 	nodes: {
 		text: {inline: true},
+		paragraph: {
+			content: "text*",
+			toDOM() { return ["p", 0] },
+			parseDOM: [{tag: "p"}]
+		},
 		title: {
 			content: "text*",
 			toDOM() { return ["h1", 0] },
 			parseDOM: [{tag: "h1"}]
 		},
 		listItem: {
-			content: "text*",
+			content: "paragraph",
 			toDOM() { return ["li", 0] },
 			parseDOM: [{tag: "li"}]
 		},
@@ -24,7 +29,7 @@ export const gateSchema = new Schema({
 			parseDOM: [{tag: "accordion-button"}]
 		},
 		accordion: {
-			content: "title list+ button",
+			content: "title (paragraph|list)+ button",
 			toDOM() { return ["accordion", 0] },
 			parseDOM: [{tag: "accordion"}]
 		},
