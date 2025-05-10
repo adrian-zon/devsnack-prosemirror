@@ -15,7 +15,11 @@ function getContent(doc) {
 		title: doc.firstChild.textContent,
 		items: [{accordion: doc.children.slice(1).map(node => ({
 			name: "some",
-			items: node.children.slice(1, -1).map(n => n.type == gateSchema.nodes.list ? {list: {items:  n.children.map(n => n.textContent)}} : { text: n.textContent}),
+			items: node.children.slice(1, -1).map(n => n.type == gateSchema.nodes.list ? {list: {
+				icon: "checkmark",
+				color: "green",
+				items:  n.children.map(n => n.textContent)
+			}} : { text: n.textContent}),
 			title: node.firstChild.textContent,
 			button: { label: node.lastChild.textContent }
 		}))}],
@@ -54,15 +58,7 @@ function showPreview(elem) {
 							id: "id",
 							config: {"id": "paid", "type": "gate", content: getContent(state.doc)},
 							settings: {
-								apiUrl: "/-/wally/api",
-								assetHost: "https://static.zeit.de/p/zeit.web",
-								authenticated: false,
-								contentUrl: "https://www.zeit.de/kultur/2025-05/kanzler-ranking-bundeskanzler-friedrich-merz-bewertung",
-								newsletterApiUrl: "/-/newsletter",
-								premiumHost: "https://premium.zeit.de",
-								productId: "zede",
-								ssoUrl: "https://meine.zeit.de",
-								ssoApiUrl: "https://meine.zeit.de/api/1",
+								ssoUrl: "http://example.com",
 							},
 							tracking: null,
 						}
@@ -90,6 +86,14 @@ window.view = new EditorView(document.querySelector("#editor"), {
 							dispatch(tr)
 						}
 						return true
+					} else if (node.type == gateSchema.nodes.paragraph && $from.depth == 2) {
+						if (dispatch) {
+							let tr = state.tr.insert($from.after(2), gateSchema.nodes.paragraph.createAndFill())
+							tr = tr.setSelection(TextSelection.create(tr.doc, $from.after(2) + 1))
+							dispatch(tr)
+						}
+						return true
+
 					}
 					return false
 				},
