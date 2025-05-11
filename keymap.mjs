@@ -21,15 +21,7 @@ export default {
         }
         return true;
       } else if (node.type == gateSchema.nodes.paragraph && $from.depth == 2) {
-        if (dispatch) {
-          let tr = state.tr.insert(
-            $from.after(2),
-            gateSchema.nodes.paragraph.createAndFill(),
-          );
-          tr = tr.setSelection(TextSelection.create(tr.doc, $from.after(2) + 1));
-          dispatch(tr);
-        }
-        return true;
+        return splitBlock(state, dispatch)
       }
       return false;
     },
