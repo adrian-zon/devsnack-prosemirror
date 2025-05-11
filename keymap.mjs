@@ -38,7 +38,7 @@ export default {
   Backspace(state, dispatch) {
     if (!state.selection.empty) return false;
     const { $from } = state.selection;
-    const node = $from.node(-1);
+    const node = $from.node(1);
     if (node.type != gateSchema.nodes.accordion) return false;
     if (node.textContent) return false;
     if (dispatch) {
